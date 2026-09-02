@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MD Sharier Najim — IT & Administration Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2EFE7;
+    --bg-soft:#C8DFDB;
+    --surface:#FFFFFF;
+    --line:#CFE2DF;
+    --navy:#1E3F5C;
+    --navy-2:#264A6B;
+    --steel:#5C8199;
+    --text-dark:#1B3A54;
+    --text-muted:#4C6C82;
+    --on-navy:#EAF2F0;
+    --on-navy-muted:#B7D2CB;
+    --brass:#3368A0;
+    --brass-bright:#66A3BF;
+    --brass-tint:#C8DFDB;
+    --ok:#2F9E62;
+    --shadow:rgba(30,63,92,.12);
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --radius:3px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--text-dark);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+  section{padding:96px 0;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:20px; height:1px;
+    background:var(--brass);
+    display:inline-block;
+  }
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; letter-spacing:-.01em; color:var(--text-dark);}
+  h2{font-size:clamp(28px,3.4vw,40px); margin-bottom:12px;}
+  .section-intro{max-width:620px; color:var(--text-muted); font-size:16px; margin-bottom:56px;}
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  /* ===== NAV ===== */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(242,239,231,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s ease, background .3s ease;
+  }
+  header.scrolled{box-shadow:0 8px 24px var(--shadow); background:rgba(242,239,231,0.98);}
+  .nav{
+    max-width:1120px; margin:0 auto; padding:0 32px;
+    display:flex; align-items:center; justify-content:space-between;
+    height:68px;
+  }
+  .brand{
+    font-family:var(--font-mono); font-size:14px; color:var(--text-dark);
+    display:flex; align-items:center; gap:10px;
+    cursor:pointer; transition:color .2s;
+  }
+  .brand:hover{color:var(--brass);}
+  .brand .dot{
+    width:8px; height:8px; border-radius:50%; background:var(--ok);
+    box-shadow:0 0 0 0 rgba(47,158,98,.6);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(47,158,98,.55);}
+    70%{box-shadow:0 0 0 8px rgba(47,158,98,0);}
+    100%{box-shadow:0 0 0 0 rgba(47,158,98,0);}
+  }
+  .navlinks{display:flex; gap:32px; font-size:14px; color:var(--text-muted);}
+  .navlinks a{position:relative; padding:4px 0; transition:color .2s;}
+  .navlinks a::after{
+    content:""; position:absolute; left:0; bottom:-2px; width:0; height:1px;
+    background:var(--brass); transition:width .25s ease;
+  }
+  .navlinks a:hover{color:var(--text-dark);}
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.06em;
+    color:#fff; background:var(--brass);
+    padding:9px 16px; border-radius:var(--radius);
+    transition:background .2s, transform .2s;
+  }
+  .nav-cta:hover{background:var(--brass-bright); transform:translateY(-1px);}
+  .nav-toggle{display:none; background:none; border:none; color:var(--text-dark); font-size:22px; cursor:pointer;}
+
+  @media (max-width:900px){
+    .navlinks{
+      position:fixed; top:68px; left:0; right:0;
+      background:var(--surface); flex-direction:column; gap:0;
+      padding:8px 32px 20px; transform:translateY(-8px);
+      opacity:0; pointer-events:none; transition:all .2s;
+      border-bottom:1px solid var(--line);
+      box-shadow:0 12px 24px var(--shadow);
+    }
+    .navlinks.open{opacity:1; pointer-events:auto; transform:translateY(0);}
+    .navlinks a{padding:12px 0; border-bottom:1px solid var(--line); width:100%; color:var(--text-dark);}
+    .nav-cta{display:none;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:var(--bg);
+    padding:168px 0 100px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(16,30,44,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,30,44,.05) 1px, transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(ellipse at 70% 20%, black 0%, transparent 65%);
+            mask-image:radial-gradient(ellipse at 70% 20%, black 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative; z-index:1;}
+  .status-line{
+    font-family:var(--font-mono); font-size:13px; color:var(--ok);
+    display:flex; align-items:center; gap:10px; margin-bottom:28px;
+    letter-spacing:.04em;
+  }
+  .status-line .dot{width:7px; height:7px; border-radius:50%; background:var(--ok); animation:pulse 2.4s infinite;}
+  .hero h1{
+    font-size:clamp(38px,6vw,64px);
+    line-height:1.05;
+    margin-bottom:18px;
+  }
+  .hero h1 span{color:var(--brass);}
+  .hero .role{
+    font-size:clamp(17px,2vw,20px);
+    color:var(--text-muted);
+    max-width:640px;
+    margin-bottom:36px;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:52px;}
+  .tag{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.03em;
+    border:1px solid var(--line); color:var(--text-dark);
+    padding:7px 13px; border-radius:var(--radius);
+    background:var(--surface);
+    transition:border-color .2s, transform .2s;
+  }
+  .tag:hover{border-color:var(--brass); transform:translateY(-2px);}
+  .cta-row{display:flex; flex-wrap:wrap; gap:16px; margin-bottom:64px;}
+  .btn{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:.03em;
+    padding:14px 26px; border-radius:var(--radius);
+    display:inline-flex; align-items:center; gap:10px;
+    transition:all .2s; border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--brass); color:#fff; font-weight:600;}
+  .btn-primary:hover{background:var(--brass-bright); transform:translateY(-2px); box-shadow:0 10px 24px rgba(185,129,46,.3);}
+  .btn-ghost{border-color:var(--line); color:var(--text-dark); background:var(--surface);}
+  .btn-ghost:hover{border-color:var(--brass); color:var(--brass); transform:translateY(-2px);}
+
+  .metrics{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    padding-top:32px;
+  }
+  .metric{border-left:1px solid var(--line); padding:0 24px;}
+  .metric:first-child{border-left:none; padding-left:0;}
+  .metric .num{font-family:var(--font-display); font-size:28px; color:var(--text-dark); font-weight:600;}
+  .metric .label{font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); margin-top:6px;}
+  @media (max-width:760px){
+    .metrics{grid-template-columns:repeat(2,1fr); row-gap:24px;}
+    .metric:nth-child(3){border-left:none;}
+  }
+
+  /* ===== ABOUT ===== */
+  .about-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:64px;}
+  .about-grid p{color:var(--text-muted); margin-bottom:16px; font-size:16px;}
+  .contact-card{
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius); padding:28px;
+    height:fit-content;
+    box-shadow:0 1px 2px var(--shadow);
+  }
+  .contact-card h3{font-size:13px; font-family:var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:18px; font-weight:600;}
+  .contact-row{display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .contact-row:last-child{border-bottom:none;}
+  .contact-row .k{font-family:var(--font-mono); font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em;}
+  .contact-row .v{font-weight:500; text-align:right; transition:color .2s;}
+  .contact-row a.v:hover{color:var(--brass);}
+
+  /* ===== EXPERIENCE (audit log) ===== */
+  .experience{background:var(--bg-soft);}
+  .log{border-left:1px solid var(--line); margin-left:6px;}
+  .log-entry{position:relative; padding:0 0 48px 36px;}
+  .log-entry:last-child{padding-bottom:0;}
+  .log-entry::before{
+    content:""; position:absolute; left:-6px; top:4px;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--brass);
+    transition:transform .2s;
+  }
+  .log-entry:hover::before{transform:scale(1.25);}
+  .log-entry.active::before{background:var(--ok); border-color:var(--ok);}
+  .log-meta{font-family:var(--font-mono); font-size:12px; color:var(--brass); letter-spacing:.04em; margin-bottom:8px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;}
+  .log-meta .badge{
+    font-size:10px; border:1px solid var(--ok); color:var(--ok);
+    padding:2px 8px; border-radius:20px; letter-spacing:.06em;
+  }
+  .log-entry h3{font-size:20px; margin-bottom:4px;}
+  .log-role{font-size:14px; color:var(--text-muted); margin-bottom:14px; font-family:var(--font-mono);}
+  .log-entry ul{display:flex; flex-direction:column; gap:8px;}
+  .log-entry li{position:relative; padding-left:18px; color:var(--text-dark); font-size:14.5px;}
+  .log-entry li::before{content:"›"; position:absolute; left:0; color:var(--brass);}
+
+  /* ===== SKILLS ===== */
+  .modules{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .module{
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius); padding:28px;
+    border-top:3px solid var(--brass);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .module:hover{transform:translateY(-4px); box-shadow:0 16px 32px var(--shadow);}
+  .module h3{font-size:16px; margin-bottom:16px; display:flex; align-items:center; gap:10px;}
+  .module h3 .idx{font-family:var(--font-mono); font-size:12px; color:var(--brass);}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--font-mono); font-size:12px;
+    background:var(--bg); border:1px solid var(--line);
+    padding:6px 11px; border-radius:20px; color:var(--text-dark);
+    transition:background .2s, border-color .2s;
+  }
+  .chip:hover{background:var(--brass-tint); border-color:var(--brass);}
+  .chip.learning{border-style:dashed; color:var(--text-muted);}
+  @media (max-width:760px){.modules{grid-template-columns:1fr;}}
+
+  /* ===== SERVICES ===== */
+  .services{background:var(--bg-soft);}
+  .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .service{background:var(--surface); padding:36px 28px; transition:background .25s;}
+  .service:hover{background:var(--brass-tint);}
+  .service .num{font-family:var(--font-mono); font-size:13px; color:var(--brass); margin-bottom:20px; display:block;}
+  .service h3{font-size:18px; margin-bottom:10px;}
+  .service p{font-size:14px; color:var(--text-muted);}
+  @media (max-width:860px){.service-grid{grid-template-columns:1fr;}}
+
+  /* ===== WORK SAMPLES ===== */
+  .work-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .work-card{
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius); overflow:hidden;
+    transition:transform .25s, box-shadow .25s;
+    cursor:pointer;
+  }
+  .work-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px var(--shadow);}
+  .work-thumb{
+    aspect-ratio:16/9; background:var(--navy);
+    display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .view-hint{
+    position:absolute; bottom:12px; right:14px;
+    font-family:var(--font-mono); font-size:11px; color:#fff;
+    background:rgba(30,63,92,0.75); padding:5px 11px; border-radius:20px;
+    opacity:0; transform:translateY(6px); transition:opacity .25s, transform .25s;
+  }
+  .work-card:hover .view-hint{opacity:1; transform:translateY(0);}
+  .work-thumb svg{width:56px; height:56px; transition:transform .3s;}
+  .work-thumb img{transition:transform .3s;}
+  .work-card:hover .work-thumb svg{transform:scale(1.12);}
+  .work-card:hover .work-thumb img{transform:scale(1.06);}
+  .work-thumb .tag-corner{
+    position:absolute; top:12px; left:12px;
+    font-family:var(--font-mono); font-size:10px; color:#FFFFFF;
+    border:1px solid rgba(255,255,255,0.4); padding:3px 8px; border-radius:20px;
+    letter-spacing:.04em; background:rgba(0,0,0,0.35);
+  }
+  .work-body{padding:22px;}
+  .work-body h3{font-size:17px; margin-bottom:8px;}
+  .work-body p{font-size:14px; color:var(--text-muted);}
+  @media (max-width:760px){.work-grid{grid-template-columns:1fr;}}
+
+  /* ===== EDUCATION + CERTS ===== */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:64px;}
+  .list-block h3{font-size:13px; font-family:var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:20px; font-weight:600;}
+  .edu-item{margin-bottom:22px; padding-left:18px; border-left:2px solid var(--brass);}
+  .edu-item .school{font-weight:600; font-size:15.5px;}
+  .edu-item .degree{font-size:14px; color:var(--text-muted); margin-top:2px;}
+  .edu-item .meta{font-family:var(--font-mono); font-size:11.5px; color:var(--brass); margin-top:4px;}
+  .cert-list li{
+    display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--line);
+    font-size:14px; align-items:baseline; transition:padding-left .2s;
+  }
+  .cert-list li:hover{padding-left:6px;}
+  .cert-list li::before{content:"✓"; color:var(--ok); font-family:var(--font-mono); flex-shrink:0;}
+  @media (max-width:760px){.split{grid-template-columns:1fr; gap:40px;}}
+
+  /* ===== CONTACT / FOOTER ===== */
+  .contact-section{background:var(--bg-soft); text-align:center;}
+  .contact-section .eyebrow{justify-content:center;}
+  .contact-section p{color:var(--text-muted); max-width:520px; margin:0 auto 36px;}
+  .contact-cta{display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:56px;}
+  .footer-links{display:flex; justify-content:center; gap:28px; font-family:var(--font-mono); font-size:13px; color:var(--text-muted); flex-wrap:wrap; margin-bottom:24px;}
+  .footer-links a{transition:color .2s;}
+  .footer-links a:hover{color:var(--brass);}
+  .footer-note{font-family:var(--font-mono); font-size:11px; color:var(--steel); border-top:1px solid var(--line); padding-top:24px;}
+
+  /* ===== GALLERY MODAL ===== */
+  .gallery-modal{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(22,50,74,.55);
+    backdrop-filter:blur(4px);
+    display:none; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .gallery-modal.open{display:flex;}
+  .gallery-modal-inner{
+    background:var(--surface); border-radius:8px;
+    width:100%; max-width:980px; max-height:86vh;
+    display:flex; flex-direction:column; overflow:hidden;
+    box-shadow:0 30px 60px rgba(22,50,74,.35);
+  }
+  .gallery-modal-header{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    padding:24px 28px 16px; border-bottom:1px solid var(--line);
+  }
+  .gallery-modal-eyebrow{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--brass); margin-bottom:4px;
+  }
+  .gallery-modal-header h3{font-size:20px;}
+  .gallery-close{
+    background:var(--bg); border:1px solid var(--line); color:var(--text-dark);
+    width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:15px;
+    flex-shrink:0; transition:background .2s, transform .2s;
+  }
+  .gallery-close:hover{background:var(--brass); color:#fff; transform:rotate(90deg);}
+  .gallery-back-row{padding:14px 28px 0;}
+  .gallery-back-btn{
+    font-family:var(--font-mono); font-size:12px; color:var(--brass);
+    background:none; border:none; cursor:pointer; padding:6px 0;
+    transition:color .2s;
+  }
+  .gallery-back-btn:hover{color:var(--brass-bright);}
+  .gallery-body{padding:20px 28px 28px; overflow-y:auto;}
+
+  .folder-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  .folder-card{
+    border:1px solid var(--line); border-radius:6px; padding:18px 14px;
+    text-align:center; cursor:pointer; background:var(--bg);
+    transition:transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .folder-card:hover{transform:translateY(-3px); box-shadow:0 10px 20px var(--shadow); border-color:var(--brass);}
+  .folder-icon{
+    width:40px; height:40px; margin:0 auto 10px;
+    color:var(--brass);
+  }
+  .folder-name{font-size:13.5px; font-weight:600; color:var(--text-dark);}
+  .folder-count{font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-top:3px;}
+  @media (max-width:700px){.folder-grid{grid-template-columns:repeat(2,1fr);}}
+
+  .gallery-img-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+  .gallery-img-grid .gimg{
+    aspect-ratio:1/1; border-radius:5px; overflow:hidden; cursor:pointer;
+    border:1px solid var(--line); position:relative;
+  }
+  .gallery-img-grid .gimg img{width:100%; height:100%; object-fit:cover; transition:transform .3s;}
+  .gallery-img-grid .gimg:hover img{transform:scale(1.08);}
+  @media (max-width:700px){.gallery-img-grid{grid-template-columns:repeat(2,1fr);}}
+
+  .files-block{margin-top:26px; border-top:1px solid var(--line); padding-top:20px;}
+  .files-block h4{font-size:13px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); margin-bottom:12px;}
+  .file-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:12px 14px; border:1px solid var(--line); border-radius:6px; margin-bottom:8px;
+    background:var(--bg);
+  }
+  .file-row .fname{font-size:13.5px; font-weight:500; display:flex; align-items:center; gap:10px;}
+  .file-row a{
+    font-family:var(--font-mono); font-size:11.5px; color:#fff; background:var(--brass);
+    padding:6px 12px; border-radius:20px; transition:background .2s; flex-shrink:0;
+  }
+  .file-row a:hover{background:var(--brass-bright);}
+
+  /* ===== LIGHTBOX ===== */
+  .lightbox{
+    position:fixed; inset:0; z-index:300;
+    background:rgba(10,20,30,.94);
+    display:none; align-items:center; justify-content:center;
+    padding:40px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:100%; max-height:80vh; border-radius:4px; box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  .lightbox-close{
+    position:absolute; top:20px; right:24px; background:rgba(255,255,255,.1); border:none; color:#fff;
+    width:40px; height:40px; border-radius:50%; font-size:16px; cursor:pointer; transition:background .2s;
+  }
+  .lightbox-close:hover{background:var(--brass);}
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(255,255,255,.1); border:none; color:#fff;
+    width:48px; height:48px; border-radius:50%; font-size:26px; cursor:pointer;
+    transition:background .2s;
+  }
+  .lightbox-nav:hover{background:var(--brass);}
+  .lightbox-prev{left:20px;}
+  .lightbox-next{right:20px;}
+  .lightbox-caption{
+    position:absolute; bottom:24px; left:0; right:0; text-align:center;
+    font-family:var(--font-mono); font-size:13px; color:var(--on-navy-muted);
+  }
+  @media (max-width:700px){
+    .lightbox-nav{width:38px; height:38px; font-size:20px;}
+    .lightbox-prev{left:8px;} .lightbox-next{right:8px;}
+  }
+
+  /* ===== BACK TO TOP ===== */
+  #backToTop{
+    position:fixed; right:24px; bottom:24px; z-index:90;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--navy); color:#fff; border:none;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:0 8px 20px rgba(16,30,44,.25);
+    opacity:0; transform:translateY(12px) scale(.9); pointer-events:none;
+    transition:opacity .25s, transform .25s, background .25s;
+  }
+  #backToTop.show{opacity:1; transform:translateY(0) scale(1); pointer-events:auto;}
+  #backToTop:hover{background:var(--brass);}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="nav">
+    <a href="#" class="brand" id="brandTop"><span class="dot"></span> SHARIER_NAJIM_RESUME</a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="Sharier_Najim_CV.pdf" download class="nav-cta">Download CV</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="status-line"><span class="dot"></span> STATUS: AVAILABLE FOR OPPORTUNITIES</div>
+    <h1>MD Sharier Najim —<br><span>IT & Administration</span> Professional.</h1>
+    <p class="role">2+ years of hands-on experience across IT infrastructure support, export & commercial documentation, executive-level administration, and graphic design — delivering accuracy and confidentiality on every task.</p>
+    <div class="tag-row">
+      <span class="tag">IT Infrastructure & Support</span>
+      <span class="tag">Executive Administration</span>
+      <span class="tag">Graphic Design</span>
+    </div>
+    <div class="cta-row">
+      <a href="Sharier_Najim_CV.pdf" download class="btn btn-primary">↓ Download CV (PDF)</a>
+      <a href="mailto:muhammadsharier@gmail.com" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="num">2.6+ YRS</div><div class="label">Active Experience</div></div>
+      <div class="metric"><div class="num">03</div><div class="label">Organizations Served</div></div>
+      <div class="metric"><div class="num">2</div><div class="label">Election Campaign Terms</div></div>
+      <div class="metric"><div class="num">6</div><div class="label">Certifications Completed</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="eyebrow">About</div>
+      <h2>Technical reliability, administrative precision.</h2>
+      <p>I'm an IT & Administration professional with 2.6+ years of experience supporting IT infrastructure, office administration, ERP systems, and commercial export operations.</p>
+      <p>From hardware and software troubleshooting to Excel-based data reporting, EPB export data submission, and A-Challan preparation, I bring a proven track record of accuracy. I'm skilled at liaising across multi-disciplinary teams to maintain strict data confidentiality, operational accuracy, and seamless business workflows.</p>
+      <p>Alongside my IT and admin work, I also design visual materials — from illustrations and flyers to corporate stationery and publications — using Adobe Photoshop, Illustrator, Canva, and AI-assisted design tools.</p>
+    </div>
+    <div class="contact-card reveal">
+      <h3>Quick Info</h3>
+      <div class="contact-row"><span class="k">Location</span><span class="v">Uttara, Dhaka</span></div>
+      <div class="contact-row"><span class="k">Phone</span><a class="v" href="https://wa.me/8801571583828" target="_blank" rel="noopener">01571583828</a></div>
+      <div class="contact-row"><span class="k">Email</span><a class="v" href="mailto:muhammadsharier@gmail.com">muhammadsharier@gmail.com</a></div>
+      <div class="contact-row"><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/md-sharier-najim-1b9327224/" target="_blank" rel="noopener">md-sharier-najim</a></div>
+      <div class="contact-row"><span class="k">GitHub</span><a class="v" href="https://github.com/Sharier0" target="_blank" rel="noopener">Sharier0</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="experience">
+  <div class="wrap">
+    <div class="eyebrow reveal">Work Log</div>
+    <h2 class="reveal">Experience Timeline</h2>
+    <p class="section-intro reveal">Structured like an audit trail — each entry is a record of responsibility held at an organization or campaign.</p>
+
+    <div class="log">
+      <div class="log-entry active reveal">
+        <div class="log-meta">10 MAR 2024 — 31 AUGUST 2026 <span class="badge">2.5 YEARS</span></div>
+        <h3>Asian Group</h3>
+        <div class="log-role">IT Executive (Administration)</div>
+        <ul>
+          <li>Provide end-to-end technical support, managing hardware/software troubleshooting, system maintenance, software deployment, and peripheral support for workstations to ensure minimal operational downtime.</li>
+          <li>Manage commercial documentation, including export invoices, A-Challan generation, EPB export data submission, and audit-ready document verification with high accuracy.</li>
+          <li>Direct administrative operations and document control, preparing executive-level business reports, files, and confidential records to support cross-functional business priorities.</li>
+          <li>Collaborate closely with IT, Administration, Commercial, and Management teams to streamline daily workflow efficiency and operational communication.</li>
+          <li>Develop Excel-based tracking systems and data reports for export monitoring and inventory oversight.</li>
+          <li>Provide executive assistance to the Managing Director, handling scheduling, priority communications, and confidential administrative tasks.</li>
+        </ul>
+      </div>
+
+      <div class="log-entry reveal">
+        <div class="log-meta">2024 & 2025 <span class="badge" style="border-color:var(--brass); color:var(--brass);">2 TERMS</span></div>
+        <h3>FORUM — BGMEA Election Campaigns</h3>
+        <div class="log-role">Executive IT & Admin</div>
+        <ul>
+          <li>Spearheaded IT and technical operations for major election campaign activities, ensuring reliable digital infrastructure and data synchronization.</li>
+          <li>Administered campaign voter databases, data entry operations, voter records, and digital communications while maintaining strict data confidentiality.</li>
+          <li>Coordinated high-profile election meetings, campaign events, print material logistics, and cross-team communications.</li>
+          <li>Maintained financial tracking records, campaign expenditure reports, and supporting legal/administrative documentation with discretion.</li>
+        </ul>
+      </div>
+
+      <div class="log-entry reveal">
+        <div class="log-meta">DEC 2023 — JAN 2024</div>
+        <h3>Banglalink Digital Communications Ltd.</h3>
+        <div class="log-role">SME Officer (IT)</div>
+        <ul>
+          <li>Maintained internal IT systems, user access provisioning, software credentials, and database integrity within Enterprise Sales & Marketing Operations.</li>
+          <li>Ensured systematic data validation, record updates, and routine technical reporting to support daily business analytics.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow reveal">Capabilities</div>
+    <h2 class="reveal">Skill Modules</h2>
+    <p class="section-intro reveal">Five core areas of expertise — each built on real, hands-on work.</p>
+    <div class="modules">
+      <div class="module reveal">
+        <h3><span class="idx">01</span> IT Infrastructure & Support</h3>
+        <div class="chip-row">
+          <span class="chip">Hardware Troubleshooting</span>
+          <span class="chip">Software Troubleshooting</span>
+          <span class="chip">System Maintenance</span>
+          <span class="chip">Windows Support</span>
+          <span class="chip">User Access Management</span>
+          <span class="chip">Peripheral Configuration</span>
+        </div>
+      </div>
+      <div class="module reveal">
+        <h3><span class="idx">02</span> Admin & Commercial</h3>
+        <div class="chip-row">
+          <span class="chip">Office Administration</span>
+          <span class="chip">ERP Systems</span>
+          <span class="chip">EPB Export Data Submission</span>
+          <span class="chip">A-Challan Management</span>
+          <span class="chip">Executive Support</span>
+        </div>
+      </div>
+      <div class="module reveal">
+        <h3><span class="idx">03</span> Data Analytics & Tools</h3>
+        <div class="chip-row">
+          <span class="chip">Excel — VLOOKUP</span>
+          <span class="chip">Excel — XLOOKUP</span>
+          <span class="chip">Pivot Tables</span>
+          <span class="chip">Advanced Reporting</span>
+          <span class="chip">Data Management</span>
+          <span class="chip learning">Power BI (Learning)</span>
+          <span class="chip learning">SQL (Learning)</span>
+        </div>
+      </div>
+      <div class="module reveal">
+        <h3><span class="idx">04</span> Graphic Design & Creative Tools</h3>
+        <div class="chip-row">
+          <span class="chip">Adobe Photoshop</span>
+          <span class="chip">Adobe Illustrator</span>
+          <span class="chip">Canva</span>
+          <span class="chip">AI-Assisted Design</span>
+          <span class="chip">Illustrations</span>
+          <span class="chip">Flyers</span>
+          <span class="chip">Festoons</span>
+          <span class="chip">Visiting & ID Cards</span>
+          <span class="chip">Book Covers</span>
+          <span class="chip">Report Books</span>
+          <span class="chip">Magazines</span>
+        </div>
+      </div>
+      <div class="module reveal">
+        <h3><span class="idx">05</span> Web Technology & Design</h3>
+        <div class="chip-row">
+          <span class="chip">HTML5</span>
+          <span class="chip">CSS3</span>
+          <span class="chip">Bootstrap</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">jQuery</span>
+          <span class="chip">Responsive Design</span>
+          <span class="chip">Figma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="wrap">
+    <div class="eyebrow reveal">Services</div>
+    <h2 class="reveal">What I Offer</h2>
+    <p class="section-intro reveal">From IT support to executive administration and graphic design — reliable, accurate service.</p>
+  </div>
+  <div class="wrap">
+  <div class="service-grid reveal">
+    <div class="service">
+      <span class="num">01</span>
+      <h3>IT Support & System Maintenance</h3>
+      <p>Hardware/software troubleshooting, workstation setup, user access, and peripheral configuration.</p>
+    </div>
+    <div class="service">
+      <span class="num">02</span>
+      <h3>Executive & Administrative Support</h3>
+      <p>Scheduling, confidential documentation, file & record management, and cross-team coordination.</p>
+    </div>
+    <div class="service">
+      <span class="num">03</span>
+      <h3>Export & Commercial Documentation</h3>
+      <p>EPB export data submission, A-Challan preparation, and audit-ready document verification.</p>
+    </div>
+    <div class="service">
+      <span class="num">04</span>
+      <h3>Excel Reporting & Data Dashboards</h3>
+      <p>Advanced data reports using VLOOKUP/XLOOKUP, pivot tables, and custom tracking systems.</p>
+    </div>
+    <div class="service">
+      <span class="num">05</span>
+      <h3>Graphic Design</h3>
+      <p>Illustrations, flyers, festoons, visiting & ID cards, book covers, report books, and magazine layouts — designed in Photoshop, Illustrator, Canva, and with AI-assisted tools.</p>
+    </div>
+    <div class="service">
+      <span class="num">06</span>
+      <h3>Basic Web Development & Design</h3>
+      <p>Responsive frontend builds with HTML5, CSS3, Bootstrap, and JavaScript, plus UI design in Figma.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="eyebrow reveal">Selected Work</div>
+    <h2 class="reveal">Work Samples</h2>
+    <p class="section-intro reveal">Click a card to browse the full sample gallery.</p>
+    <div class="work-grid">
+      <div class="work-card reveal" onclick="openDataAnalytics()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')openDataAnalytics()">
+        <div class="work-thumb">
+          <span class="tag-corner">DATA ANALYTICS</span>
+          <img src="assets/export-tracking-dashboard.jpg" alt="Export Tracking Dashboard — Excel Pivot Table, Chart & Slicer" style="width:100%; height:100%; object-fit:cover;">
+          <span class="view-hint">View all samples →</span>
+        </div>
+        <div class="work-body">
+          <h3>Export Tracking Dashboard</h3>
+          <p>An interactive Excel dashboard built with Pivot Tables, Slicers, and Charts — connected with VLOOKUP/XLOOKUP so shipment, buyer, and monthly value data can be viewed instantly.</p>
+        </div>
+      </div>
+      <div class="work-card reveal" onclick="openDesignFolders()" role="button" tabindex="0" onkeypress="if(event.key==='Enter')openDesignFolders()">
+        <div class="work-thumb">
+          <span class="tag-corner">DESIGN</span>
+          <img src="assets/brand-collateral.jpg" alt="Brand Collateral — Business Card Design" style="width:100%; height:100%; object-fit:cover;">
+          <span class="view-hint">View all samples →</span>
+        </div>
+        <div class="work-body">
+          <h3>Brand Collateral — Flyers, Cards & Covers</h3>
+          <p>Visiting cards, ID cards, flyers, festoons, and book/report covers designed in Photoshop, Illustrator, and Canva.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY MODAL ===== -->
+<div id="galleryModal" class="gallery-modal" aria-hidden="true">
+  <div class="gallery-modal-inner">
+    <div class="gallery-modal-header">
+      <div>
+        <div class="gallery-modal-eyebrow" id="galleryEyebrow">Gallery</div>
+        <h3 id="galleryTitle">Title</h3>
+      </div>
+      <button class="gallery-close" onclick="closeGalleryModal()" aria-label="Close">✕</button>
+    </div>
+    <div id="galleryBackRow" class="gallery-back-row" style="display:none;">
+      <button class="gallery-back-btn" onclick="showDesignFolders()">← Back to folders</button>
+    </div>
+    <div id="galleryBody" class="gallery-body"></div>
+  </div>
+</div>
+
+<!-- ===== IMAGE LIGHTBOX ===== -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)" aria-label="Previous">‹</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)" aria-label="Next">›</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<section id="credentials">
+  <div class="wrap split">
+    <div class="list-block reveal">
+      <h3>Education</h3>
+      <div class="edu-item">
+        <div class="school">International Standard University (ISU)</div>
+        <div class="degree">Bachelor of Science in Computer Science & Engineering</div>
+        <div class="meta">ONGOING</div>
+      </div>
+      <div class="edu-item">
+        <div class="school">Kurigram Government Polytechnic Institute</div>
+        <div class="degree">Diploma in Engineering — Computer Technology</div>
+        <div class="meta">CGPA: 3.01 / 4.00</div>
+      </div>
+    </div>
+    <div class="list-block reveal">
+      <h3>Training & Certifications</h3>
+      <ul class="cert-list">
+        <li>Industrial Attachment — Frontend Development, Creative IT Institute (Aug–Nov 2023)</li>
+        <li>AI for Social Impact — ADBI</li>
+        <li>Fundamentals of Digital Marketing — Google Garage</li>
+        <li>Google Ads Display Certification</li>
+        <li>IT for Business — HP</li>
+        <li>Cyber Hygiene Training — SAJIDA Foundation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="wrap reveal">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Let's Work Together</h2>
+    <p>Reach out for anything related to IT support, executive administration, export documentation, or graphic design.</p>
+    <div class="contact-cta">
+      <a href="mailto:muhammadsharier@gmail.com" class="btn btn-primary">✉ Send an Email</a>
+      <a href="Sharier_Najim_CV.pdf" download class="btn btn-ghost">↓ Download CV</a>
+    </div>
+    <div class="footer-links">
+      <a href="tel:+8801571583828">01571583828</a>
+      <a href="https://www.linkedin.com/in/md-sharier-najim-1b9327224/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Sharier0" target="_blank" rel="noopener">GitHub</a>
+      <span>Uttara, Dhaka</span>
+    </div>
+    <div class="footer-note">© 2026 MD SHARIER NAJIM — LAST UPDATED: AUG 2026</div>
+  </div>
+</section>
+
+<button id="backToTop" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+const galleryData = {
+  "dataAnalytics": {
+    "images": [
+      {
+        "src": "assets/work/data-analytics/hr-attendance-chart-slicer.jpg",
+        "title": "HR_Attendance Chart & Slicer"
+      },
+      {
+        "src": "assets/work/data-analytics/hr-attendance-department-attendance-summary.jpg",
+        "title": "HR_Attendance Department attendance summary"
+      },
+      {
+        "src": "assets/work/data-analytics/hr-attendance-pivot-table.jpg",
+        "title": "HR_Attendance Pivot Table"
+      },
+      {
+        "src": "assets/work/data-analytics/hr-attendance-pivot-chart-slicer.jpg",
+        "title": "HR_Attendance Pivot,Chart & Slicer"
+      },
+      {
+        "src": "assets/work/data-analytics/monthly-revenue-trend.jpg",
+        "title": "Monthly Revenue Trend"
+      },
+      {
+        "src": "assets/work/data-analytics/product-id-to-details-xlookup-vlookup.jpg",
+        "title": "Product ID to Details (Xlookup & Vlookup)"
+      },
+      {
+        "src": "assets/work/data-analytics/product-performance.jpg",
+        "title": "Product Performance"
+      },
+      {
+        "src": "assets/work/data-analytics/region-sales-pivot.jpg",
+        "title": "Region Sales Pivot"
+      },
+      {
+        "src": "assets/work/data-analytics/sales-person-performance.jpg",
+        "title": "Sales Person Performance"
+      }
+    ],
+    "files": [
+      {
+        "src": "assets/work/data-analytics/files/portfolio-level-vlookup-xlookup-practice-1.xlsx",
+        "title": "Portfolio_Level_VLOOKUP_XLOOKUP_Practice (1)"
+      },
+      {
+        "src": "assets/work/data-analytics/files/vlookup-xlookup-practice.xlsx",
+        "title": "VLOOKUP_XLOOKUP_Practice"
+      },
+      {
+        "src": "assets/work/data-analytics/files/pivot-tables.xlsx",
+        "title": "Pivot Tables"
+      },
+      {
+        "src": "assets/work/data-analytics/files/practice-datasets-multi.xlsx",
+        "title": "Practice_Datasets_Multi"
+      }
+    ]
+  },
+  "design": {
+    "Banner": [
+      "assets/work/design/banner/green-and-gold-modern-congratulations-banner-landscape.jpg",
+      "assets/work/design/banner/pink-blue-brand-collection-facebook-cover.jpg"
+    ],
+    "Card": [
+      "assets/work/design/card/blue-and-white-modern-business-portrait-company-id-card.jpg"
+    ],
+    "Visiting & Business Card": [
+      "assets/work/design/visiting-business-card/1.jpg",
+      "assets/work/design/visiting-business-card/2.jpg",
+      "assets/work/design/visiting-business-card/cream-and-white-simple-aesthetic-note-pad.jpg"
+    ],
+    "Flyers": [
+      "assets/work/design/flyers/blue-modern-business-conference-digital-poster-potrait.jpg",
+      "assets/work/design/flyers/blue-political-election-poster.jpg",
+      "assets/work/design/flyers/blue-white-professional-corporate-cover-letter.jpg",
+      "assets/work/design/flyers/md-sir.jpg",
+      "assets/work/design/flyers/md-sir-1.jpg",
+      "assets/work/design/flyers/purple-red-modern-bold-election-vote-flyer.jpg",
+      "assets/work/design/flyers/rashid-sir.jpg"
+    ],
+    "Logo": [
+      "assets/work/design/logo/apparel-insight-logo2.jpg",
+      "assets/work/design/logo/navy-blue.jpg",
+      "assets/work/design/logo/pink-minimalist-boutique-logo-pdf.jpg",
+      "assets/work/design/logo/screenshot-1.jpg",
+      "assets/work/design/logo/screenshot-2.jpg",
+      "assets/work/design/logo/screenshot-23.jpg",
+      "assets/work/design/logo/screenshot-5.jpg"
+    ],
+    "Mockup": [
+      "assets/work/design/mockup/12.jpg",
+      "assets/work/design/mockup/14.jpg",
+      "assets/work/design/mockup/1999.jpg",
+      "assets/work/design/mockup/25.jpg",
+      "assets/work/design/mockup/6.jpg",
+      "assets/work/design/mockup/7.jpg",
+      "assets/work/design/mockup/a1.jpg",
+      "assets/work/design/mockup/black-and-white-minimalist-signboard-mockup-instagram-story-1.jpg",
+      "assets/work/design/mockup/black-and-white-minimalist-signboard-mockup-instagram-story.jpg",
+      "assets/work/design/mockup/brown-minimalist-simple-frame-mockup-reminder-quote-instagram-post.jpg",
+      "assets/work/design/mockup/gray-and-black-simple-hat-mockup-instagarm-post.jpg",
+      "assets/work/design/mockup/purple-white-creative-watch-desktop-prototype.jpg",
+      "assets/work/design/mockup/white-and-black-minimalist-cap-baseball-mockup-instagram-post.jpg",
+      "assets/work/design/mockup/white-and-grey-minimalist-mockup-instagram-post.jpg",
+      "assets/work/design/mockup/white-black-minimalist-mockup-cup-coffee-instagram-post.jpg",
+      "assets/work/design/mockup/black-green-simple-minimalist-aesthetic-world-book-day-mockup-instagram-post.jpg",
+      "assets/work/design/mockup/1.jpg",
+      "assets/work/design/mockup/11.jpg",
+      "assets/work/design/mockup/13.jpg",
+      "assets/work/design/mockup/2.jpg",
+      "assets/work/design/mockup/3.jpg",
+      "assets/work/design/mockup/4.jpg",
+      "assets/work/design/mockup/5.jpg",
+      "assets/work/design/mockup/6-1.jpg",
+      "assets/work/design/mockup/7-1.jpg",
+      "assets/work/design/mockup/8.jpg",
+      "assets/work/design/mockup/2-1.jpg",
+      "assets/work/design/mockup/3-1.jpg",
+      "assets/work/design/mockup/4-1.jpg",
+      "assets/work/design/mockup/5-1.jpg",
+      "assets/work/design/mockup/black-white-minimalist-business-logo.jpg"
+    ],
+    "Social Media Post": [
+      "assets/work/design/social-media-post/u0985-u09a8-u09c1-u09b7-u09cd-u09a0-u09be-u09a8-u09b8-u09c1-u099a-u09c0.jpg",
+      "assets/work/design/social-media-post/bellacharm.jpg",
+      "assets/work/design/social-media-post/blue-simple-thank-you-10k-followers-instagram-post.jpg",
+      "assets/work/design/social-media-post/blue-and-white-ornament-eid-mubarak-banner.jpg",
+      "assets/work/design/social-media-post/blue-and-white-minimalist-jewellery-instagram-post.jpg",
+      "assets/work/design/social-media-post/yellow-red-beige-illustrated-pohela-boishakh-instagram-post-1.jpg",
+      "assets/work/design/social-media-post/yellow-red-beige-illustrated-pohela-boishakh-instagram-post.jpg"
+    ],
+    "UI Design": [
+      "assets/work/design/ui-design/whatsapp-image-2026-07-20-at-00-14-21.jpg"
+    ]
+  }
+};
+
+// ===== WORK SAMPLE GALLERY =====
+let currentFolderImages = [];
+let currentLightboxIndex = 0;
+
+function openModal(){
+  document.getElementById('galleryModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeGalleryModal(){
+  document.getElementById('galleryModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openDataAnalytics(){
+  document.getElementById('galleryEyebrow').textContent = 'Data Analytics';
+  document.getElementById('galleryTitle').textContent = 'Export Tracking Dashboard — Samples';
+  document.getElementById('galleryBackRow').style.display = 'none';
+
+  const images = galleryData.dataAnalytics.images;
+  const files = galleryData.dataAnalytics.files;
+  currentFolderImages = images.map(i => ({src:i.src, title:i.title}));
+
+  let html = '<div class="gallery-img-grid">';
+  images.forEach((img, idx) => {
+    html += `<div class="gimg" onclick="openLightbox(${idx})"><img src="${img.src}" alt="${img.title}" loading="lazy"></div>`;
+  });
+  html += '</div>';
+
+  if(files.length){
+    html += '<div class="files-block"><h4>Downloadable Excel Files</h4>';
+    files.forEach(f => {
+      html += `<div class="file-row"><span class="fname">📊 ${f.title}</span><a href="${f.src}" download>Download</a></div>`;
+    });
+    html += '</div>';
+  }
+
+  document.getElementById('galleryBody').innerHTML = html;
+  openModal();
+}
+
+function openDesignFolders(){
+  showDesignFolders();
+  openModal();
+}
+
+function showDesignFolders(){
+  document.getElementById('galleryEyebrow').textContent = 'Design';
+  document.getElementById('galleryTitle').textContent = 'Brand Collateral — Folders';
+  document.getElementById('galleryBackRow').style.display = 'none';
+
+  const folders = galleryData.design;
+  let html = '<div class="folder-grid">';
+  Object.keys(folders).forEach(name => {
+    const count = folders[name].length;
+    html += `<div class="folder-card" onclick="openDesignFolder('${name.replace(/'/g,"\\'")}')">
+      <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+      <div class="folder-name">${name}</div>
+      <div class="folder-count">${count} ${count===1?'FILE':'FILES'}</div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('galleryBody').innerHTML = html;
+}
+
+function openDesignFolder(name){
+  const images = galleryData.design[name];
+  currentFolderImages = images.map(src => ({src, title:name}));
+
+  document.getElementById('galleryEyebrow').textContent = 'Design';
+  document.getElementById('galleryTitle').textContent = name;
+  document.getElementById('galleryBackRow').style.display = 'block';
+
+  let html = '<div class="gallery-img-grid">';
+  images.forEach((src, idx) => {
+    html += `<div class="gimg" onclick="openLightbox(${idx})"><img src="${src}" alt="${name}" loading="lazy"></div>`;
+  });
+  html += '</div>';
+  document.getElementById('galleryBody').innerHTML = html;
+}
+
+function openLightbox(idx){
+  currentLightboxIndex = idx;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+}
+function navLightbox(dir){
+  currentLightboxIndex = (currentLightboxIndex + dir + currentFolderImages.length) % currentFolderImages.length;
+  renderLightbox();
+}
+function renderLightbox(){
+  const item = currentFolderImages[currentLightboxIndex];
+  document.getElementById('lightboxImg').src = item.src;
+  document.getElementById('lightboxImg').alt = item.title;
+  document.getElementById('lightboxCaption').textContent = `${item.title}  •  ${currentLightboxIndex+1} / ${currentFolderImages.length}`;
+}
+
+document.getElementById('galleryModal').addEventListener('click', (e) => {
+  if(e.target.id === 'galleryModal') closeGalleryModal();
+});
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if(e.target.id === 'lightbox') closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if(document.getElementById('lightbox').classList.contains('open')){
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') navLightbox(-1);
+    if(e.key === 'ArrowRight') navLightbox(1);
+  } else if(document.getElementById('galleryModal').classList.contains('open')){
+    if(e.key === 'Escape') closeGalleryModal();
+  }
+});
+
+  const toggle = document.getElementById('navToggle');
+  const navlinks = document.getElementById('navlinks');
+  toggle.addEventListener('click', () => navlinks.classList.toggle('open'));
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
+
+  const header = document.getElementById('siteHeader');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 10);
+    backToTop.classList.toggle('show', y > 280);
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+  const brandTop = document.getElementById('brandTop');
+  brandTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
